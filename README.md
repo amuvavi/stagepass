@@ -86,6 +86,15 @@ Visit: [http://localhost:8000](http://localhost:8000)
 
 ---
 
+
+## 🧪 Concurrerency Testing
+
+```bash
+php artisan simulate:seat-purchase 1 2 10 100 => users purchasing 100 seats concurrently.
+1 => event id 2 => seat_row_number 10 => seat_column_number  100 => concurrency level
+```
+---
+
 ## 🧪 Running Tests
 
 ```bash
