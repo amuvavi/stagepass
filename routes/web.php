@@ -15,25 +15,22 @@ use App\Livewire\Admin\{
 };
 use App\Livewire\Admin\FailedAttempts as AdminFailedAttempts;
 
+Route::get('/', EventsList::class)->name('home');
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
+    Route::get('/events', EventsList::class)->name('events');
+    Route::get('/events/{event}/seats', EventSeats::class)->name('events.seats');
+    Route::get('/purchases', MyPurchases::class)->name('purchases');
 
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+   
 });
-Route::get('/', EventsList::class)->name('home');
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/events', EventsList::class)->name('events');
-    Route::get('/events/{event}/seats', EventSeats::class)->name('events.seats');
-    Route::get('/purchases', MyPurchases::class)->name('purchases');
-});
-
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/events', AdminEvents::class)->name('admin.events');
